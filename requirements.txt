@@ -1,0 +1,4 @@
+# Core scientific stack
+numpy>=1.23
+pandas>=1.5
+scipy>=1.11          # includes HiGHS LP solver
