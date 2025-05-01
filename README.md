@@ -62,7 +62,9 @@ It is important to stress that the links, latencies, and other components of the
 | ```hybrid_penalty``` | optional ```float```: default ```5.0``` | Extra latency penalty for usage of hybrid paths that mix private and public routes. |
 | ```demand_multiplier``` | optional ```float```: default ```1.0``` | Scales traffic demand, to future-proof network. |
 
-Users need only to call ```network_shapley``` with these inputs. There are other helper functions, e.g. ```consolidate_map``` and ```lp_primitives```, but they are not to be called directly by the end user except for testing purposes. The output is a single ```pandas.DataFrame``` with three columns: ```Operator```, ```Value```, and ```Percent```, which respectively note the operator, the raw Shapley value for that operator, and the percentage it represents of all Shapley values.
+Users need only to call ```network_shapley``` with these inputs. There are other helper functions, e.g. ```consolidate_map``` and ```lp_primitives```, but they are not to be called directly by the end user except for testing purposes.
+
+The output is a single ```pandas.DataFrame``` with three columns: ```Operator```, ```Value```, and ```Percent```, which respectively note the operator, the raw Shapley value for that operator, and the percentage it represents of all Shapley values.
 
 ```network_shapley``` is fully vectorised with NumPy/SciPy and remains quick for networks of a few hundred links and up to fifteen operators.
 
