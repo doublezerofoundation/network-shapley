@@ -72,3 +72,5 @@ The output is a single ```pandas.DataFrame``` with three columns: ```Operator```
 The script currently limits to fifteen operators to keep the computations manageable. Feel free to remove the limit. The script does not impose a limit on the number of links.
 
 The script does some light error checking but it does not yet check for all corner cases. Please open an issue or contact nihar@doublezero.us if you are unable to get a particular simulation working.
+
+Please read the manual or watch the video walkthrough at https://youtu.be/K1Ni-k51sMw for a richer understanding of the model.
