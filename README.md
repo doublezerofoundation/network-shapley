@@ -9,7 +9,7 @@ The result is a table giving every operator’s absolute value created and their
 ## Get Started
 To download and demonstrate the script:
 ```bash
-git clone https://github.com/nihar-dz/network-shapley.git
+git clone https://github.com/doublezerofoundation/network-shapley.git
 cd network-shapley
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
