@@ -1,1 +1,3 @@
 A video walkthrough can be found here: https://youtu.be/K1Ni-k51sMw
+
+Please note that the correct link for the repo is: https://github.com/doublezerofoundation/network-shapley
