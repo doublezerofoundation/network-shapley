@@ -6,6 +6,9 @@ A Python script to compute Shapley values for network contributors
 
 The result is a table giving every operator’s absolute value created and their share of the total reward.
 
+## Background
+Shapley values are a tool in cooperative game theory to align incentives, such that a contributor is paid the true marginal value of a contribution. This contrasts with the traditional carried-traffic model, which simply credits links in proportion to the number of gigabits they move. The carried-traffic model looks intuitive, but it ignores complications around redundancy, heterogeneous performance, benchmarks, etc. The Shapley value model, by contrast, evaluates every possible coalition of contributors and stacks improvements to a universal value function over a baseline world with only the public internet. In this approach, the contributor earns exactly the share of rewards that corresponds to the incremental value it unlocks. This makes it impossible to free‑ride on already‑congested routes or to over‑charge for vanity capacity that fails to improve end‑to‑end latency.
+
 ## Get Started
 To download and demonstrate the script:
 ```bash
