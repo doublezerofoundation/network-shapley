@@ -342,7 +342,7 @@ def network_shapley(
         coef.eliminate_zeros()
 
     # Get the dense copy once and place them in contiguous memory after slicing
-    coef_dense = coef.A
+    coef_dense = coef.toarray()
     term = bp_masked @ (coef_dense * submask)
     part = (bp_masked + term) * submask
 
