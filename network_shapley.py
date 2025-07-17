@@ -591,12 +591,3 @@ def network_shapley(
         "Value": np.round(shapley, 4),
         "Percent": np.round(percent, 4),
     })
-
-private_links = pd.read_csv("/Users/nihar/Documents/Shapley Prototype/Python Release/private_links2.csv")
-devices = pd.read_csv("/Users/nihar/Documents/Shapley Prototype/Python Release/devices.csv")
-demand = pd.read_csv("/Users/nihar/Documents/Shapley Prototype/Python Release/demand3.csv")
-public_links  = pd.read_csv("/Users/nihar/Documents/Shapley Prototype/Python Release/public_links2.csv")
-operator_uptime = 0.95
-contiguity_bonus = 5.0
-demand_multiplier = 1.2
-network_shapley(private_links, devices, demand, public_links, operator_uptime, contiguity_bonus, demand_multiplier)
