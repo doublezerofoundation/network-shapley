@@ -16,50 +16,61 @@ sys.path.append(str(REPO_ROOT))          # allows `import network_shapley`
 from network_shapley import network_shapley
 
 
-def build_sample_inputs() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Return small private_links, public_links, demand DataFrames."""
+def build_sample_inputs() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Return small private_links, devices, public_links, demand DataFrames."""
     private_links = pd.DataFrame(
         {
-            "Start":     ["FRA1", "FRA1", "SIN1"],
-            "End":       ["NYC1", "SIN1", "NYC1"],
-            "Cost":      [40, 50, 80],
+            "Device1":   ["SIN1", "FRA1", "FRA1"],
+            "Device2":   ["FRA1", "AMS1", "LON1"],
+            "Latency":   [50, 3, 5],
             "Bandwidth": [10, 10, 10],
-            "Operator1": ['Alpha', 'Beta', 'Gamma'],
-            "Operator2": [pd.NA, pd.NA, pd.NA],
             "Uptime":    [1, 1, 1],
             "Shared":    [pd.NA, pd.NA, pd.NA],
         }
     )
 
+    devices = pd.DataFrame(
+        {
+            "Device":   ["SIN1", "FRA1", "AMS1", "LON1"],
+            "Edge":     [1, 1, 1, 1],
+            "Operator": ["Alpha", "Alpha", "Beta", "Beta"],
+
+        }
+    )
+
     public_links = pd.DataFrame(
         {
-            "Start": ["FRA1", "FRA1", "SIN1"],
-            "End":   ["NYC1", "SIN1", "NYC1"],
-            "Cost":  [70, 80, 120],
+            "City1":   ["SIN", "SIN", "FRA", "FRA"],
+            "City2":   ["FRA", "AMS", "LON", "AMS"],
+            "Latency": [100, 102, 7, 5],
         }
     )
 
     demand = pd.DataFrame(
         {
-            "Start":   ["SIN", "SIN"],
-            "End":     ["NYC", "FRA"],
-            "Traffic": [5, 5],
-            "Type":    [1, 1],
+            "Start":     ["SIN", "SIN", "AMS", "AMS"],
+            "End":       ["AMS", "LON", "LON", "FRA"],
+            "Receivers": [1, 5, 2, 1],
+            "Traffic":   [1, 1, 3, 3],
+            "Priority":  [1, 2, 1, 1],
+            "Type":      [1, 1, 2, 2],
+            "Multicast": [True, True, False, False]
         }
     )
 
-    return private_links, public_links, demand
+    return private_links, devices, public_links, demand
 
 
 def main() -> None:
-    private_links, public_links, demand = build_sample_inputs()
+    private_links, devices, public_links, demand = build_sample_inputs()
 
     result = network_shapley(
         private_links=private_links,
-        public_links=public_links,
+        devices=devices,
         demand=demand,
+        public_links=public_links,
         operator_uptime=0.98,
-        hybrid_penalty=5.0,
+        contiguity_bonus=5.0,
         demand_multiplier=1.0,
     )
 
