@@ -1,3 +1,3 @@
-A video walkthrough can be found here: https://youtu.be/K1Ni-k51sMw
+A video walkthrough of an earlier version of the methodology can be found here: https://youtu.be/K1Ni-k51sMw
 
-Please note that the correct link for the repo is: https://github.com/doublezerofoundation/network-shapley
+There is no video walkthrough of the latest version of the methodology, although everything else in the repo (including the slides) are updated
