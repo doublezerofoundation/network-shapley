@@ -500,17 +500,19 @@ def network_shapley(
     # Check integrity in inputs
     check_inputs(private_links, devices, demand, public_links, operator_uptime)
 
+    # Get consolidated map of links and adjusted demand
+    full_demand = consolidate_demand(demand, demand_multiplier)
+    full_map = consolidate_links(private_links, devices, full_demand, public_links, contiguity_bonus)
+
+    # Construct linear program for analysis
+    prim = lp_primitives(full_map, full_demand)
+
     # Enumerate all operators (except Private/Public tags)
     operators = np.sort([x for x in pd.unique(devices["Operator"].dropna().astype(str)) if x != 'Private'])
     n_ops = len(operators)
 
     # Construct coalitions bitmap: bitmap[i, j] = 1 iff operator i is in coalition j
     bitmap = _bits(n_ops)
-
-    # Get underlying linear program primitives from consolidated map of links and adjusted demand
-    full_demand = consolidate_demand(demand, demand_multiplier)
-    full_map = consolidate_links(private_links, devices, full_demand, public_links, contiguity_bonus)
-    prim = lp_primitives(full_map, full_demand)
 
     # Setup vectors to record results
     n_coal = 2 ** n_ops
