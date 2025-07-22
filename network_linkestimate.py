@@ -35,7 +35,9 @@ def retag_links(links: pd.DataFrame, operator_focus: str) -> pd.DataFrame:
         # If both Device1 and Device2 are real devices (3-letter city code followed by 1- or 2-digit integer, that isn't
         # 00), then find the symmetric links and retag the operators accordingly
         if pattern.match(d1) and pattern.match(d2):
-            sym_idx = links.index[(links["Device1"] == d2) & (links["Device2"] == d1)][0]
+            sym_idx = links.index[(links["Device1"] == d2) & (links["Device2"] == d1) &
+                                  (links["Bandwidth"] == links.at[idx, "Bandwidth"]) &
+                                  (links["Latency"] == links.at[idx, "Latency"])][0]
             counter += 1
             if links.at[idx, "Operator1"] == operator_focus:
                 links.at[idx, "Operator1"] = str(counter)
@@ -97,6 +99,11 @@ def network_linkestimate(
                                                                                      right_on="Device"))
     _assert(~((temp.loc[(temp["Operator_x"] == operator_focus) | (temp["Operator_y"] == operator_focus), "Shared"].
                dropna().value_counts() > 1).any()), "Shared groups are not allowed for links by operator_focus.")
+
+    # Check that there are no duplicate links
+    private_links["key"] = private_links[["Device1", "Device2"]].apply(lambda x: tuple(sorted(x)), axis=1)
+    _assert(~(private_links.duplicated(["key", "Bandwidth", "Latency"], keep=False).any()), "Duplicate links found.")
+    private_links.drop(columns=["key"], inplace=True)
 
     # Check integrity in inputs
     check_inputs(private_links, devices, demand, public_links, operator_uptime)
