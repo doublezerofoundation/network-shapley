@@ -215,6 +215,7 @@ def consolidate_links(
     max_shared = int(private_df["Shared"].max(skipna=True)) if pd.notna(private_df["Shared"].max(skipna=True)) else 0
     rev = private_df.copy()
     rev[["Device1", "Device2"]] = rev[["Device2", "Device1"]]
+    rev[["Operator1", "Operator2"]] = rev[["Operator2", "Operator1"]]
     rev["Shared"] = rev['Shared'] + max_shared
     private_df = pd.concat([private_df, rev], ignore_index=True)
 
